@@ -76,6 +76,151 @@
     #flappy-bird, #flappy-goal { display: none; }
   }
 
+  /* ---------- Achievement toast ---------- */
+
+  #achievement {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 24px var(--shadow);
+    padding: 14px 18px;
+    max-width: 280px;
+    transform: translateY(24px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  #achievement.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  #achievement .ach-icon { font-size: 1.6rem; }
+
+  #achievement .ach-title {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  #achievement .ach-desc {
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+
+  /* ---------- Terminal easter egg ---------- */
+
+  #term-toggle {
+    position: fixed;
+    left: 20px;
+    bottom: 90px;
+    z-index: 20;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.9rem;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+
+  #term-toggle:hover, #term-toggle:focus-visible {
+    border-color: var(--accent-ink);
+    color: var(--accent-ink);
+  }
+
+  #terminal {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 21;
+    width: min(420px, calc(100vw - 40px));
+    height: 320px;
+    background: #0b0e11;
+    color: #8ec1ff;
+    border: 1px solid #24303c;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.86rem;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+  }
+
+  #terminal.open { display: flex; }
+
+  .term-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #24303c;
+    color: #5f9fe8;
+    font-size: 0.78rem;
+  }
+
+  .term-header button {
+    background: none;
+    border: none;
+    color: #8ec1ff;
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 4px;
+  }
+
+  .term-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .term-output .term-line { margin: 2px 0; }
+  .term-output .term-cmd { color: #e8e8e8; }
+  .term-output .term-cmd::before { content: "> "; color: #5f9fe8; }
+
+  .term-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-top: 1px solid #24303c;
+  }
+
+  .term-prompt { color: #5f9fe8; }
+
+  #term-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #8ec1ff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.86rem;
+  }
+
+  @media (max-width: 500px) {
+    #term-toggle { left: 12px; bottom: 12px; }
+    #terminal { left: 12px; right: 12px; bottom: 12px; width: auto; }
+    #achievement { right: 12px; bottom: 12px; max-width: calc(100vw - 24px); }
+  }
+
+  @media print {
+    #achievement, #term-toggle, #terminal { display: none !important; }
+  }
+
   /* ---------- Boot sequence ---------- */
 
   #boot-screen {
@@ -542,6 +687,27 @@
 <div id="flappy-bird" aria-hidden="true">🐦</div>
 <div id="flappy-goal" aria-hidden="true">🏁</div>
 
+<div id="achievement" role="status" aria-hidden="true">
+  <span class="ach-icon">🏆</span>
+  <div>
+    <div class="ach-title">Achievement unlocked</div>
+    <div class="ach-desc">Nådde botten av sidan</div>
+  </div>
+</div>
+
+<button id="term-toggle" aria-label="Öppna terminal" title="Öppna terminal">&gt;_</button>
+<div id="terminal" aria-hidden="true">
+  <div class="term-header">
+    <span>gäst@clandberg.se:~</span>
+    <button id="term-close" aria-label="Stäng terminal">&times;</button>
+  </div>
+  <div class="term-output" id="term-output"></div>
+  <div class="term-input-row">
+    <span class="term-prompt">&gt;</span>
+    <input type="text" id="term-input" autocomplete="off" spellcheck="false" aria-label="Terminal-kommando" />
+  </div>
+</div>
+
 <div id="boot-screen" aria-hidden="true">
   <div class="boot-lines"></div>
 </div>
@@ -711,6 +877,16 @@
   var canvas = document.getElementById("bg-canvas");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  var achievementShown = false;
+  function showAchievement() {
+    if (achievementShown) return;
+    achievementShown = true;
+    var el = document.getElementById("achievement");
+    if (!el) return;
+    el.classList.add("show");
+    setTimeout(function () { el.classList.remove("show"); }, 4500);
+  }
+
   var boot = document.getElementById("boot-screen");
   if (boot && !document.documentElement.classList.contains("no-boot")) {
     if (reduceMotion) {
@@ -760,6 +936,7 @@
       if (progress > 0.97) {
         flappyBird.classList.add("reached-goal");
         flappyGoal.classList.add("reached-goal");
+        showAchievement();
       } else {
         flappyBird.classList.remove("reached-goal");
         flappyGoal.classList.remove("reached-goal");
@@ -924,6 +1101,72 @@
   } else {
     document.querySelectorAll(".stat-num").forEach(function (el) {
       el.textContent = el.getAttribute("data-target");
+    });
+  }
+
+  var termToggle = document.getElementById("term-toggle");
+  var terminal = document.getElementById("terminal");
+  var termClose = document.getElementById("term-close");
+  var termOutput = document.getElementById("term-output");
+  var termInput = document.getElementById("term-input");
+
+  var termCommands = {
+    help: "Kommandon: help, whoami, skills, utbildning, erfarenhet, projekt, kontakt, clear",
+    whoami: "Christoffer Landberg — Takplåtslagare & maskinförare, studerar just nu Dator & Kommunikationsteknik 1 på Komvux.",
+    skills: "B-körkort, grävmaskin, hjullastare, teleskoplastare, kran (RMG K3).",
+    utbildning: "Arena Utbildning (Komvux) — Dator & Kommunikationsteknik 1, pågående sedan aug 2026.",
+    erfarenhet: "6 arbetsgivare, bl.a. Husby Takplåtslageri & Ventilation, JULA och Cleverex/Yilport — se tidslinjen ovan för detaljer.",
+    projekt: "Se projektsidan (länk i verktygsfältet) — bl.a. en självhostad streamingserver byggd med Node.js.",
+    kontakt: "Kontaktuppgifter delas vid intervju — hör av dig via den kanal du fick den här sidan genom.",
+    sudo: "Trevligt försök. Du har inte root-access här. 😏",
+    clear: null
+  };
+
+  function termPrint(text, isCmd) {
+    var line = document.createElement("div");
+    line.className = "term-line" + (isCmd ? " term-cmd" : "");
+    line.textContent = text;
+    termOutput.appendChild(line);
+    termOutput.scrollTop = termOutput.scrollHeight;
+  }
+
+  function termRun(raw) {
+    var cmd = raw.trim().toLowerCase();
+    if (!cmd) return;
+    termPrint(raw, true);
+    if (cmd === "clear") {
+      termOutput.innerHTML = "";
+      return;
+    }
+    if (Object.prototype.hasOwnProperty.call(termCommands, cmd)) {
+      termPrint(termCommands[cmd]);
+    } else {
+      termPrint('Okänt kommando: "' + raw + '" — skriv "help" för lista.');
+    }
+  }
+
+  if (termToggle && terminal && termClose && termInput) {
+    var openTerminal = function () {
+      terminal.classList.add("open");
+      termToggle.style.display = "none";
+      if (termOutput.children.length === 0) {
+        termPrint('Terminal redo. Skriv "help" för kommandon.');
+      }
+      termInput.focus();
+    };
+    var closeTerminal = function () {
+      terminal.classList.remove("open");
+      termToggle.style.display = "";
+    };
+    termToggle.addEventListener("click", openTerminal);
+    termClose.addEventListener("click", closeTerminal);
+    termInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        termRun(termInput.value);
+        termInput.value = "";
+      } else if (e.key === "Escape") {
+        closeTerminal();
+      }
     });
   }
 })();
