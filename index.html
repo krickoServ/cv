@@ -126,6 +126,18 @@
   .contact-row a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
   .contact-row a:hover, .contact-row a:focus-visible { border-bottom-color: var(--accent-ink); }
 
+  .reveal-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    cursor: pointer;
+  }
+  .reveal-btn:hover, .reveal-btn:focus-visible { border-bottom-color: var(--accent-ink); color: var(--accent-ink); }
+
   /* ---------- Om mig ---------- */
 
   .intro {
@@ -361,7 +373,7 @@
 
 <div class="toolbar">
   <a class="projects-btn" href="https://claude.ai/code/artifact/e0e5b29f-5a00-402b-be4c-81b1fd45ab0f" target="_blank" rel="noopener">Projekt &rarr;</a>
-  <button class="print-btn" onclick="window.print()">Spara som PDF</button>
+  <button class="print-btn" id="print-btn" type="button">Spara som PDF</button>
 </div>
 
 <div class="page">
@@ -371,18 +383,10 @@
       <span class="eyebrow">Meritförteckning</span>
       <h1>Christoffer<br>Landberg</h1>
     </div>
-    <div class="contact-list">
+    <div class="contact-list" id="contact-list">
       <div class="contact-row">
-        <span class="label">Adress</span>
-        <span class="value">Jungfruvägen 103b, 791 34 Falun</span>
-      </div>
-      <div class="contact-row">
-        <span class="label">Telefon</span>
-        <span class="value"><a href="tel:0728580100">072-858 01 00</a></span>
-      </div>
-      <div class="contact-row">
-        <span class="label">E-post</span>
-        <span class="value"><a href="mailto:Christofferlandberg8@gmail.com">Christofferlandberg8@gmail.com</a></span>
+        <span class="label">Kontakt</span>
+        <span class="value"><button type="button" class="reveal-btn" id="reveal-contact">Visa kontaktuppgifter</button></span>
       </div>
     </div>
   </header>
@@ -509,5 +513,57 @@
     </div>
 
   </div>
+
+<script>
+(function () {
+  var enc = {
+    address: "SnVuZ2ZydXbDpGdlbiAxMDNiLCA3OTEgMzQgRmFsdW4=",
+    phone: "MDcyLTg1OCAwMSAwMA==",
+    phoneTel: "MDcyODU4MDEwMA==",
+    email: "Q2hyaXN0b2ZmZXJsYW5kYmVyZzhAZ21haWwuY29t"
+  };
+
+  function decode(b64) {
+    var bytes = Uint8Array.from(atob(b64), function (c) { return c.charCodeAt(0); });
+    return new TextDecoder().decode(bytes);
+  }
+
+  var revealed = false;
+
+  function reveal() {
+    if (revealed) return;
+    revealed = true;
+
+    var list = document.getElementById("contact-list");
+    list.innerHTML =
+      '<div class="contact-row"><span class="label">Adress</span><span class="value" id="c-address"></span></div>' +
+      '<div class="contact-row"><span class="label">Telefon</span><span class="value" id="c-phone"></span></div>' +
+      '<div class="contact-row"><span class="label">E-post</span><span class="value" id="c-email"></span></div>';
+
+    document.getElementById("c-address").textContent = decode(enc.address);
+
+    var telLink = document.createElement("a");
+    telLink.href = "tel:" + decode(enc.phoneTel);
+    telLink.textContent = decode(enc.phone);
+    document.getElementById("c-phone").appendChild(telLink);
+
+    var mailLink = document.createElement("a");
+    mailLink.href = "mailto:" + decode(enc.email);
+    mailLink.textContent = decode(enc.email);
+    document.getElementById("c-email").appendChild(mailLink);
+  }
+
+  var revealBtn = document.getElementById("reveal-contact");
+  if (revealBtn) revealBtn.addEventListener("click", reveal);
+
+  var printBtn = document.getElementById("print-btn");
+  if (printBtn) {
+    printBtn.addEventListener("click", function () {
+      reveal();
+      window.print();
+    });
+  }
+})();
+</script>
 
 </div>
