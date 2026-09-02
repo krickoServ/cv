@@ -1,38 +1,14 @@
 <title>Christoffer Landberg – Projekt</title>
 <style>
   :root {
-    --bg: #eff1f0;
+    --bg: #f4f6f8;
     --surface: #ffffff;
-    --ink: #1c2225;
-    --ink-soft: #55616c;
-    --line: #d7dad8;
-    --accent: #c97a1f;
-    --accent-ink: #9c5a0e;
-    --shadow: rgba(28, 34, 37, 0.08);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #14181a;
-      --surface: #1b2124;
-      --ink: #ecece3;
-      --ink-soft: #9ba3a6;
-      --line: #2b3236;
-      --accent: #e8a34a;
-      --accent-ink: #f0b15e;
-      --shadow: rgba(0, 0, 0, 0.35);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --bg: #14181a;
-    --surface: #1b2124;
-    --ink: #ecece3;
-    --ink-soft: #9ba3a6;
-    --line: #2b3236;
-    --accent: #e8a34a;
-    --accent-ink: #f0b15e;
-    --shadow: rgba(0, 0, 0, 0.35);
+    --ink: #101820;
+    --ink-soft: #56626c;
+    --line: #d5dbe0;
+    --accent: #1d5fd6;
+    --accent-ink: #123fa0;
+    --shadow: rgba(16, 24, 32, 0.06);
   }
 
   * { box-sizing: border-box; }
@@ -49,6 +25,9 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 56px 24px 96px;
+    background:
+      radial-gradient(circle, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+      var(--bg);
   }
 
   .eyebrow {
@@ -111,29 +90,73 @@
     margin-bottom: 28px;
   }
 
-  .empty-state {
-    border: 1px dashed var(--line);
-    padding: 48px 32px;
-    text-align: center;
-    color: var(--ink-soft);
+  .project-card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 28px 32px;
+    box-shadow: 0 1px 0 var(--shadow);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
 
-  .empty-state .marker {
-    width: 10px;
-    height: 10px;
-    border: 2px dashed var(--accent);
-    margin: 0 auto 18px;
+  .project-card:hover {
+    box-shadow: 0 8px 20px var(--shadow);
+    transform: translateY(-2px);
   }
 
-  .empty-state p {
+  .project-card .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
+
+  .project-card h2 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
     margin: 0;
-    max-width: 46ch;
-    margin-inline: auto;
+  }
+
+  .project-status {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    border: 1px solid var(--line);
+    padding: 3px 9px;
+    white-space: nowrap;
+  }
+
+  .project-card p {
+    margin: 14px 0 0;
+    max-width: 62ch;
+    color: var(--ink);
     font-size: 0.98rem;
+  }
+
+  .tech-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 0;
+    padding: 0;
+  }
+
+  .tech-tags li {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.76rem;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink-soft);
+    padding: 4px 10px;
   }
 
   @media (max-width: 640px) {
     .titleblock { padding: 28px 22px; }
+    .project-card { padding: 24px 22px; }
   }
 
   @media print {
@@ -147,7 +170,7 @@
 
 <div class="page">
 
-  <a class="back-link" href="https://claude.ai/code/artifact/4496b222-e269-4284-b5d3-69fff6082b0f">&larr; Till CV</a>
+  <a class="back-link" href="index.html">&larr; Till CV</a>
 
   <header class="titleblock">
     <span class="eyebrow">Christoffer Landberg</span>
@@ -157,9 +180,20 @@
 
   <section class="block">
     <span class="eyebrow">Pågående &amp; genomförda projekt</span>
-    <div class="empty-state">
-      <div class="marker"></div>
-      <p>Inga projekt tillagda ännu &ndash; den här sidan fylls på efter hand.</p>
+
+    <div class="project-card">
+      <div class="project-head">
+        <h2>Egen streamingserver</h2>
+        <span class="project-status">Självhostad &middot; pågående</span>
+      </div>
+      <p>Byggt en egen filmstreamingtjänst från grunden som körs på min egen dator hemma &ndash; inloggning med JWT och krypterade lösenord, egen databas för filmer/poster, och driftas med PM2 så tjänsten håller sig igång och startar om automatiskt.</p>
+      <ul class="tech-tags">
+        <li>Node.js</li>
+        <li>Express</li>
+        <li>SQLite</li>
+        <li>JWT-autentisering</li>
+        <li>PM2</li>
+      </ul>
     </div>
   </section>
 

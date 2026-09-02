@@ -35,6 +35,47 @@
     pointer-events: none;
   }
 
+  /* ---------- Flappy bird scroll progress ---------- */
+
+  #flappy-bird {
+    position: fixed;
+    left: 22px;
+    top: 20px;
+    font-size: 28px;
+    z-index: 3;
+    pointer-events: none;
+    animation: flap 0.5s ease-in-out infinite alternate;
+    filter: drop-shadow(0 2px 4px var(--shadow));
+  }
+
+  #flappy-goal {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    font-size: 26px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  @keyframes flap {
+    from { transform: rotate(-10deg) translateY(0); }
+    to { transform: rotate(10deg) translateY(-8px); }
+  }
+
+  #flappy-bird.reached-goal,
+  #flappy-goal.reached-goal {
+    animation: celebrate 0.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes celebrate {
+    from { transform: scale(1) rotate(-12deg); }
+    to { transform: scale(1.25) rotate(12deg); }
+  }
+
+  @media (max-width: 1100px) {
+    #flappy-bird, #flappy-goal { display: none; }
+  }
+
   /* ---------- Boot sequence ---------- */
 
   #boot-screen {
@@ -100,10 +141,16 @@
     position: relative;
     border: 1px solid var(--line);
     background-color: var(--surface);
-    background-image:
-      repeating-linear-gradient(45deg, rgba(29, 95, 214, 0.16) 0, rgba(29, 95, 214, 0.16) 2px, transparent 2px, transparent 20px),
-      repeating-linear-gradient(-45deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 20px);
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWQ1ZmQ2IiBzdHJva2Utd2lkdGg9IjEuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgICA8cGF0aCBkPSJNMCAyNSBIMzUgVjAiLz4KICAgIDxwYXRoIGQ9Ik0zNSAyNSBIMTAwIi8+CiAgICA8cGF0aCBkPSJNNjAgMjUgVjYwIEgxMDAiLz4KICAgIDxwYXRoIGQ9Ik0wIDcwIEgyNSBWMTAwIi8+CiAgICA8cGF0aCBkPSJNMjUgNzAgSDcwIFYxMDAiLz4KICAgIDxwYXRoIGQ9Ik03MCA3MCBIMTAwIi8+CiAgPC9nPgogIDxnIGZpbGw9IiMxZDVmZDYiIGZpbGwtb3BhY2l0eT0iMC4zIj4KICAgIDxjaXJjbGUgY3g9IjM1IiBjeT0iMjUiIHI9IjIuNCIvPgogICAgPGNpcmNsZSBjeD0iNjAiIGN5PSIyNSIgcj0iMi40Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSIyLjQiLz4KICAgIDxjaXJjbGUgY3g9IjI1IiBjeT0iNzAiIHI9IjIuNCIvPgogICAgPGNpcmNsZSBjeD0iNzAiIGN5PSI3MCIgcj0iMi40Ii8+CiAgPC9nPgo8L3N2Zz4K");
+    background-size: 100px 100px;
+    background-repeat: repeat;
+    background-position: 0 0;
     box-shadow: 0 1px 0 var(--shadow);
+    animation: circuit-drift 22s linear infinite;
+  }
+
+  @keyframes circuit-drift {
+    to { background-position: 100px 100px; }
   }
 
   .titleblock::before,
@@ -150,6 +197,12 @@
     margin: 0;
     text-wrap: balance;
     letter-spacing: -0.01em;
+    animation: name-drop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes name-drop {
+    0% { opacity: 0; transform: translateY(-70px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
 
@@ -236,6 +289,12 @@
   }
 
   /* ---------- Sidebar: utbildning ---------- */
+
+  .edu-entry + .edu-entry {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
 
   .edu-entry .school {
     font-family: "Archivo", sans-serif;
@@ -444,9 +503,11 @@
     .print-btn, .projects-btn { display: none; }
     #bg-canvas { display: none; }
     #boot-screen { display: none !important; }
+    #flappy-bird, #flappy-goal { display: none; }
     body { background: #fff; color: #111; }
     .page { padding: 0; max-width: none; background: #fff; }
     .titleblock, .chips li, .entry-dates { box-shadow: none; }
+    .titleblock, h1 { animation: none; }
     .entry { break-inside: avoid; }
     .reveal { opacity: 1 !important; transform: none !important; }
   }
@@ -471,10 +532,15 @@
       transition: none;
     }
     .entry, .chips li, .edu-entry .school, .entry::before { transition: none; }
+    .titleblock, h1 { animation: none; }
+    #flappy-bird, #flappy-goal { animation: none; }
   }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<div id="flappy-bird" aria-hidden="true">🐦</div>
+<div id="flappy-goal" aria-hidden="true">🏁</div>
 
 <div id="boot-screen" aria-hidden="true">
   <div class="boot-lines"></div>
@@ -483,7 +549,7 @@
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <div class="toolbar">
-  <a class="projects-btn" href="https://claude.ai/code/artifact/e0e5b29f-5a00-402b-be4c-81b1fd45ab0f" target="_blank" rel="noopener">Projekt &rarr;</a>
+  <a class="projects-btn" href="projekt-christoffer-landberg.html">Projekt &rarr;</a>
   <button class="print-btn" id="print-btn" type="button">Spara som PDF</button>
 </div>
 
@@ -522,6 +588,12 @@
 
       <section class="block reveal">
         <span class="eyebrow">Utbildning</span>
+        <div class="edu-entry">
+          <div class="school">Arena Utbildning</div>
+          <div class="place">Komvux &ndash; Dator &amp; Kommunikationsteknik 1</div>
+          <div class="dates">Aug 2026 &ndash; Pågående</div>
+          <p>Intensivkurs på komvux inom dator &amp; kommunikationsteknik.</p>
+        </div>
         <div class="edu-entry">
           <div class="school">Sala och Heby skolan</div>
           <div class="place">Heby &ndash; grundskoleutbildning</div>
@@ -675,6 +747,27 @@
         }
       })(0, 0, []);
     }
+  }
+
+  var flappyBird = document.getElementById("flappy-bird");
+  var flappyGoal = document.getElementById("flappy-goal");
+  if (flappyBird && flappyGoal) {
+    var updateFlappy = function () {
+      var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = scrollable > 0 ? Math.min(Math.max(window.scrollY / scrollable, 0), 1) : 0;
+      var range = window.innerHeight - 80;
+      flappyBird.style.top = (20 + progress * range) + "px";
+      if (progress > 0.97) {
+        flappyBird.classList.add("reached-goal");
+        flappyGoal.classList.add("reached-goal");
+      } else {
+        flappyBird.classList.remove("reached-goal");
+        flappyGoal.classList.remove("reached-goal");
+      }
+    };
+    updateFlappy();
+    window.addEventListener("scroll", updateFlappy, { passive: true });
+    window.addEventListener("resize", updateFlappy);
   }
 
   document.querySelectorAll(".chips li, .stat").forEach(function (el) {
