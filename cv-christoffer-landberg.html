@@ -1,0 +1,513 @@
+<title>Christoffer Landberg</title>
+<style>
+  :root {
+    --bg: #eff1f0;
+    --surface: #ffffff;
+    --ink: #1c2225;
+    --ink-soft: #55616c;
+    --line: #d7dad8;
+    --accent: #c97a1f;
+    --accent-ink: #9c5a0e;
+    --shadow: rgba(28, 34, 37, 0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181a;
+      --surface: #1b2124;
+      --ink: #ecece3;
+      --ink-soft: #9ba3a6;
+      --line: #2b3236;
+      --accent: #e8a34a;
+      --accent-ink: #f0b15e;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14181a;
+    --surface: #1b2124;
+    --ink: #ecece3;
+    --ink-soft: #9ba3a6;
+    --line: #2b3236;
+    --accent: #e8a34a;
+    --accent-ink: #f0b15e;
+    --shadow: rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  .mono {
+    font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 500;
+  }
+
+  /* ---------- Title block ---------- */
+
+  .titleblock {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: 0 1px 0 var(--shadow);
+  }
+
+  .titleblock-name {
+    padding: 36px 32px;
+    border-right: 1px solid var(--line);
+  }
+
+  .titleblock-name .eyebrow { margin-bottom: 14px; display: block; }
+
+  h1 {
+    font-family: "Archivo", "Arial Narrow", sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4.6vw, 2.9rem);
+    line-height: 1.02;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-row {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-row .label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+
+  .contact-row .value {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.88rem;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-row a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .contact-row a:hover, .contact-row a:focus-visible { border-bottom-color: var(--accent-ink); }
+
+  /* ---------- Om mig ---------- */
+
+  .intro {
+    margin-top: 28px;
+    padding: 24px 0 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .intro p {
+    margin: 12px 0 20px;
+    max-width: 62ch;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+
+  /* ---------- Layout ---------- */
+
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 8px 48px;
+    margin-top: 8px;
+  }
+
+  section.block { padding-top: 34px; }
+
+  section.block > .eyebrow {
+    display: block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+
+  /* ---------- Sidebar: utbildning ---------- */
+
+  .edu-entry .school {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .edu-entry .place { color: var(--ink-soft); font-size: 0.92rem; }
+
+  .edu-entry .dates {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    color: var(--accent-ink);
+    margin: 6px 0 8px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .edu-entry p { margin: 0; font-size: 0.94rem; color: var(--ink); }
+
+  /* ---------- Sidebar: behörigheter ---------- */
+
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chips li {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 9px 12px;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.15s ease;
+  }
+
+  .chips li::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    flex: none;
+  }
+
+  .chips li:hover { border-color: var(--accent-ink); }
+
+  /* ---------- Main: erfarenhet timeline ---------- */
+
+  .timeline {
+    position: relative;
+    padding-left: 26px;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .entry {
+    position: relative;
+    padding-bottom: 34px;
+    break-inside: avoid;
+  }
+
+  .entry:last-child { padding-bottom: 0; }
+
+  .entry::before {
+    content: "";
+    position: absolute;
+    left: -26px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+  }
+
+  .entry.current::before {
+    background: var(--accent);
+  }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+
+  .entry-org {
+    font-family: "Archivo", sans-serif;
+    font-weight: 800;
+    font-size: 1.12rem;
+  }
+
+  .entry-role {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-top: 2px;
+  }
+
+  .entry-dates {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    padding: 3px 9px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entry.current .entry-dates {
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .entry ul {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+  }
+
+  .entry li {
+    position: relative;
+    padding-left: 16px;
+    margin: 6px 0;
+    font-size: 0.96rem;
+  }
+
+  .entry li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 5px;
+    height: 5px;
+    background: var(--ink-soft);
+  }
+
+  /* ---------- Print button ---------- */
+
+  .toolbar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+  }
+
+  .print-btn, .projects-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .print-btn:hover, .print-btn:focus-visible,
+  .projects-btn:hover, .projects-btn:focus-visible { border-color: var(--accent-ink); color: var(--accent-ink); }
+
+  @media (max-width: 720px) {
+    .toolbar { position: static; margin-bottom: 24px; }
+  }
+
+  @media (max-width: 720px) {
+    .titleblock { grid-template-columns: 1fr; }
+    .titleblock-name { border-right: none; border-bottom: 1px solid var(--line); }
+    .layout { grid-template-columns: 1fr; }
+    section.block:first-of-type { padding-top: 34px; }
+  }
+
+  @media print {
+    .print-btn, .projects-btn { display: none; }
+    body { background: #fff; color: #111; }
+    .page { padding: 0; max-width: none; }
+    .titleblock, .chips li, .entry-dates { box-shadow: none; }
+    .entry { break-inside: avoid; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="toolbar">
+  <a class="projects-btn" href="https://claude.ai/code/artifact/e0e5b29f-5a00-402b-be4c-81b1fd45ab0f" target="_blank" rel="noopener">Projekt &rarr;</a>
+  <button class="print-btn" onclick="window.print()">Spara som PDF</button>
+</div>
+
+<div class="page">
+
+  <header class="titleblock">
+    <div class="titleblock-name">
+      <span class="eyebrow">Meritförteckning</span>
+      <h1>Christoffer<br>Landberg</h1>
+    </div>
+    <div class="contact-list">
+      <div class="contact-row">
+        <span class="label">Adress</span>
+        <span class="value">Jungfruvägen 103b, 791 34 Falun</span>
+      </div>
+      <div class="contact-row">
+        <span class="label">Telefon</span>
+        <span class="value"><a href="tel:0728580100">072-858 01 00</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="label">E-post</span>
+        <span class="value"><a href="mailto:Christofferlandberg8@gmail.com">Christofferlandberg8@gmail.com</a></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="intro">
+    <span class="eyebrow">Om mig</span>
+    <p>Jag heter Christoffer och är 21 år gammal. Jag är en motiverad person som tycker om att uppfylla mål och strävar efter att alltid utvecklas.</p>
+  </div>
+
+  <div class="layout">
+
+    <div class="sidebar">
+
+      <section class="block">
+        <span class="eyebrow">Utbildning</span>
+        <div class="edu-entry">
+          <div class="school">Sala och Heby skolan</div>
+          <div class="place">Heby &ndash; grundskoleutbildning</div>
+          <div class="dates">Aug 2012 &ndash; Jun 2021</div>
+          <p>Gick de första åren på Ransta skolan, avslutade grundskoleutbildningen på Sala och Heby skolan.</p>
+        </div>
+      </section>
+
+      <section class="block">
+        <span class="eyebrow">Behörigheter</span>
+        <ul class="chips">
+          <li>B-körkort</li>
+          <li>Grävmaskin</li>
+          <li>Hjullastare, anläggning/gods</li>
+          <li>Teleskoplastare</li>
+          <li>Kran (RMG K3)</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <div class="main">
+
+      <section class="block">
+        <span class="eyebrow">Erfarenhet</span>
+
+        <div class="timeline">
+
+          <div class="entry current">
+            <div class="entry-head">
+              <div>
+                <div class="entry-org">Husby Takplåtslageri &amp; Ventilation AB</div>
+              </div>
+              <div class="entry-dates">Nuvarande</div>
+            </div>
+            <ul>
+              <li>Utför tätskiktsarbete med takpapp &ndash; svetsar och fäster enligt ritningar och säkerhetskrav</li>
+              <li>Utför reparationer och underhåll av befintliga papptak</li>
+              <li>Samarbetar med kollegor och följer arbetsledningens instruktioner</li>
+              <li>Följer arbetsmiljö- och säkerhetsföreskrifter noggrant &ndash; säkerställer god kvalitet och hållbarhet i utfört arbete</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <div class="entry-org">JULA, Västerås</div>
+              <div class="entry-dates">Apr &ndash; Aug 2025</div>
+            </div>
+            <div class="entry-role">Säsongsanställning</div>
+            <ul>
+              <li>Packade upp varor</li>
+              <li>Arbetade i kassa och vid kundservicedisken</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <div class="entry-org">Cleverex Bemanning &ndash; uppdrag hos Yilport</div>
+              <div class="entry-dates">Apr 2024 &ndash; Feb 2025</div>
+            </div>
+            <div class="entry-role">Heltid</div>
+            <ul>
+              <li>Körde ut bilar från tågvagnar</li>
+              <li>Byggde om vagnar</li>
+              <li>Tog prover på kaffebönor</li>
+              <li>Körde kran, RMG (K3)</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <div class="entry-org">Kappartoppen, Ransta</div>
+              <div class="entry-dates">Mar 2023 &ndash; Nov 2024</div>
+            </div>
+            <div class="entry-role">Grävmaskinist &middot; säsong</div>
+            <ul>
+              <li>Dikade och grävde med grävmaskin, hjullastare och traktor åt privatpersoner</li>
+              <li>Skogsarbete åt Hovberga Gård</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <div class="entry-org">Bilkompaniet, Sala</div>
+              <div class="entry-dates">Apr&ndash;Maj &amp; Okt&ndash;Nov 2023</div>
+            </div>
+            <div class="entry-role">Däckskiftare &middot; säsong</div>
+            <ul>
+              <li>Rengjorde, lagrade och skiftade däck</li>
+              <li>Assisterade bilservicepersonalen</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <div class="entry-org">Tepes, Västerås</div>
+              <div class="entry-dates">Jun &ndash; Sep 2023</div>
+            </div>
+            <div class="entry-role">Trädgårdsskötare och markbeläggning &middot; säsong</div>
+            <ul>
+              <li>Skötte rabatter, planteringar och grönområden åt olika fastigheter</li>
+              <li>Krattade grus, göt betongfundament samt anlade gångvägar åt olika projekt runt Västerås och Enköping</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,166 @@
+<title>Christoffer Landberg – Projekt</title>
+<style>
+  :root {
+    --bg: #eff1f0;
+    --surface: #ffffff;
+    --ink: #1c2225;
+    --ink-soft: #55616c;
+    --line: #d7dad8;
+    --accent: #c97a1f;
+    --accent-ink: #9c5a0e;
+    --shadow: rgba(28, 34, 37, 0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181a;
+      --surface: #1b2124;
+      --ink: #ecece3;
+      --ink-soft: #9ba3a6;
+      --line: #2b3236;
+      --accent: #e8a34a;
+      --accent-ink: #f0b15e;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14181a;
+    --surface: #1b2124;
+    --ink: #ecece3;
+    --ink-soft: #9ba3a6;
+    --line: #2b3236;
+    --accent: #e8a34a;
+    --accent-ink: #f0b15e;
+    --shadow: rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 500;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+    margin-bottom: 40px;
+  }
+
+  .back-link:hover, .back-link:focus-visible { border-color: var(--accent-ink); color: var(--accent-ink); }
+
+  .titleblock {
+    padding: 36px 32px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: 0 1px 0 var(--shadow);
+    margin-bottom: 48px;
+  }
+
+  .titleblock .eyebrow { display: block; margin-bottom: 14px; }
+
+  h1 {
+    font-family: "Archivo", "Arial Narrow", sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4.6vw, 2.9rem);
+    line-height: 1.02;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  .titleblock p {
+    margin: 14px 0 0;
+    max-width: 60ch;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  section.block > .eyebrow {
+    display: block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+
+  .empty-state {
+    border: 1px dashed var(--line);
+    padding: 48px 32px;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+
+  .empty-state .marker {
+    width: 10px;
+    height: 10px;
+    border: 2px dashed var(--accent);
+    margin: 0 auto 18px;
+  }
+
+  .empty-state p {
+    margin: 0;
+    max-width: 46ch;
+    margin-inline: auto;
+    font-size: 0.98rem;
+  }
+
+  @media (max-width: 640px) {
+    .titleblock { padding: 28px 22px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .page { padding: 0; max-width: none; }
+    .back-link { display: none; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="page">
+
+  <a class="back-link" href="https://claude.ai/code/artifact/4496b222-e269-4284-b5d3-69fff6082b0f">&larr; Till CV</a>
+
+  <header class="titleblock">
+    <span class="eyebrow">Christoffer Landberg</span>
+    <h1>Projekt</h1>
+    <p>En samling av projekt jag driver eller har genomfört vid sidan av mina anställningar.</p>
+  </header>
+
+  <section class="block">
+    <span class="eyebrow">Pågående &amp; genomförda projekt</span>
+    <div class="empty-state">
+      <div class="marker"></div>
+      <p>Inga projekt tillagda ännu &ndash; den här sidan fylls på efter hand.</p>
+    </div>
+  </section>
+
+</div>
