@@ -1,53 +1,299 @@
+<!-- ==========================================================================
+     Christoffer Landberg — IT-portfolio (INTE ett CV)
+     HTML här, CSS i css/style.css, JavaScript i js/script.js.
+
+     VIKTIGT för framtida redigering: lägg bara till sådant som faktiskt är
+     sant/gjort. Saknas information (bild, projekt, certifikat) — lämna en
+     tydlig platshållare/kommentar istället för att hitta på innehåll.
+     ========================================================================== -->
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Christoffer Landberg</title>
-<meta name="robots" content="noindex">
-<style>
-  :root {
-    --bg: #f2f5fb;
-    --ink: #10182b;
-    --ink-soft: #5b6572;
-    --accent: #1c4f9c;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "Segoe UI", system-ui, sans-serif;
-    text-align: center;
-    padding: 24px;
-  }
-
-  .wrap { max-width: 440px; }
-
-  h1 { margin: 0 0 8px; font-size: 1.7rem; font-weight: 800; }
-
-  p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
-
-  .bar {
-    width: 48px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 2px;
-    margin: 18px auto 22px;
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Christoffer Landberg — IT-portfolio</title>
+  <meta name="description" content="Christoffer Landbergs personliga IT-portfolio — projekt, certifikat och vad jag lär mig på vägen mot att bli IT-tekniker.">
+  <meta name="keywords" content="Christoffer Landberg, IT-portfolio, Linux, Nätverk, Cisco, Datorer">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.clandberg.se/">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="wrap">
+
+  <!-- ---------- Navigation ---------- -->
+  <nav class="navbar">
+    <a href="#" class="nav-brand">CL</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Öppna meny" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#om-mig">Om mig</a></li>
+      <li><a href="#projekt">Projekt</a></li>
+      <li><a href="#certifikat">Certifikat</a></li>
+      <li><a href="#larande">Vad jag lär mig</a></li>
+      <li><a href="#galleri">Galleri</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==========================================================================
+       1. HERO
+       ========================================================================== -->
+  <header class="hero reveal">
+
+    <!-- Platshållare för profilbild. Byt ut mot en riktig bild när du har en:
+         <img class="hero-photo" src="images/profil.jpg" alt="Christoffer Landberg"> -->
+    <div class="hero-photo placeholder-box" aria-hidden="true">
+      <i data-lucide="user" class="icon"></i>
+    </div>
+
     <h1>Christoffer Landberg</h1>
-    <div class="bar"></div>
-    <p>Sidan byggs om just nu &ndash; tillbaka snart.</p>
+    <p class="tagline">Blivande IT-tekniker med stort intresse för Linux, nätverk och datorer. Den här sidan är min personliga portfolio där jag samlar projekt, certifikat och sådant jag lär mig längs vägen.</p>
+
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://github.com/krickoServ" target="_blank" rel="noopener">
+        <i data-lucide="github" class="icon"></i> GitHub
+      </a>
+      <a class="btn-ghost" href="#projekt">
+        <i data-lucide="folder-git-2" class="icon"></i> Se projekt
+      </a>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <!-- ==========================================================================
+         2. OM MIG
+         ========================================================================== -->
+    <section id="om-mig" class="block reveal">
+      <span class="eyebrow"><i data-lucide="user" class="icon"></i> Om mig</span>
+      <h2>Om mig</h2>
+      <p>Jag har ett stort intresse för datorer och IT i alla former. Jag studerar just nu Dator- och kommunikationsteknik och vill utvecklas vidare inom Linux, nätverk och IT-drift. Den här portfolion är mitt sätt att dokumentera resan dit – projekten jag bygger, certifikaten jag tar och det jag lär mig på vägen.</p>
+    </section>
+
+    <!-- ==========================================================================
+         3. PROJEKT
+         ========================================================================== -->
+    <section id="projekt" class="block reveal">
+      <span class="eyebrow"><i data-lucide="folder-git-2" class="icon"></i> Projekt</span>
+      <h2>Projekt</h2>
+      <div class="card-grid">
+
+        <div class="card project-card">
+          <div class="card-head">
+            <div class="card-title">Portfolio</div>
+          </div>
+          <p>Den här sidan. Byggd med HTML, CSS och JavaScript för att lära mig grunderna i webbutveckling och ha en plats att visa upp mina projekt.</p>
+          <ul class="tag-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+
+        <div class="card project-card">
+          <div class="card-head">
+            <div class="card-title">Linux</div>
+          </div>
+          <p>Ett självstudieprojekt där jag lärt mig grunderna i Ubuntu Linux – installerat systemet, arbetat i terminalen och testat att installera paket på egen hand.</p>
+          <ul class="tag-list">
+            <li>Ubuntu</li>
+            <li>Terminal</li>
+          </ul>
+        </div>
+
+        <div class="card project-card">
+          <div class="card-head">
+            <div class="card-title">Cisco</div>
+          </div>
+          <p>Kurser via Cisco Networking Academy som en del av min utbildning, med praktiska övningar i grundläggande nätverksteknik.</p>
+          <ul class="tag-list">
+            <li>Cisco Networking Academy</li>
+          </ul>
+        </div>
+
+        <div class="card project-card">
+          <div class="card-head">
+            <div class="card-title">Packet Tracer</div>
+          </div>
+          <p>Praktiska övningar i nätverksuppbyggnad och adressering i Cisco Packet Tracer.</p>
+          <ul class="tag-list">
+            <li>IPv4</li>
+            <li>Subnetting</li>
+            <li>Switchar &amp; routrar</li>
+          </ul>
+        </div>
+
+        <div class="card project-card">
+          <div class="card-head">
+            <div class="card-title">ChrilleFlix</div>
+            <span class="project-status">Hobbyprojekt</span>
+          </div>
+          <p>Ett hobbyprojekt där jag experimenterat med Node.js och Express för att lära mig hur en webbapplikation fungerar.</p>
+          <ul class="tag-list">
+            <li>Node.js</li>
+            <li>Express</li>
+          </ul>
+        </div>
+
+        <!-- Platshållare för kommande projekt. Fyll i när nästa projekt är klart. -->
+        <div class="card project-card placeholder-card">
+          <div class="card-head">
+            <div class="card-title">Framtida projekt</div>
+          </div>
+          <p>Fler projekt är på gång och läggs till här efter hand.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. CERTIFIKAT
+         ========================================================================== -->
+    <section id="certifikat" class="block reveal">
+      <span class="eyebrow"><i data-lucide="award" class="icon"></i> Certifikat</span>
+      <h2>Certifikat</h2>
+      <div class="cert-grid">
+
+        <div class="cert-badge">
+          <div class="card-icon"><i data-lucide="award" class="icon"></i></div>
+          <div class="cert-name">Welcome to Cisco</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+        </div>
+
+        <div class="cert-badge in-progress">
+          <div class="card-icon"><i data-lucide="clock" class="icon"></i></div>
+          <div class="cert-name">Networking Basics</div>
+          <div class="cert-issuer">Cisco Networking Academy &middot; Pågående</div>
+        </div>
+
+        <!-- Platshållare för kommande certifikat -->
+        <div class="cert-badge placeholder-card">
+          <div class="card-icon"><i data-lucide="plus" class="icon"></i></div>
+          <div class="cert-name">Framtida certifikat</div>
+          <div class="cert-issuer">Läggs till efter hand</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. VAD JAG LÄR MIG (tidslinje/blogg)
+         ========================================================================== -->
+    <section id="larande" class="block reveal">
+      <span class="eyebrow"><i data-lucide="notebook-pen" class="icon"></i> Vad jag lär mig</span>
+      <h2>Vad jag lär mig</h2>
+      <!-- Nya inlägg läggs till som en ny .entry högst upp i listan. -->
+      <div class="timeline">
+
+        <div class="entry">
+          <div class="entry-head">
+            <div class="entry-org">Cisco-laborationer</div>
+          </div>
+          <p>Genomfört övningar i Cisco Packet Tracer som en del av min utbildning.</p>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <div class="entry-org">Lärt mig Bash</div>
+          </div>
+          <p>Börjat lära mig grundläggande kommandon i terminalen på Linux.</p>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <div class="entry-org">Installerat Ubuntu</div>
+          </div>
+          <p>Installerade Ubuntu Linux och började utforska terminalen på egen hand.</p>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <div class="entry-org">Byggt dator</div>
+          </div>
+          <p>Satte ihop en egen dator från grunden och lärde mig om komponenterna och hur de hänger ihop.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. GALLERI
+         ========================================================================== -->
+    <section id="galleri" class="block reveal">
+      <span class="eyebrow"><i data-lucide="image" class="icon"></i> Galleri</span>
+      <h2>Galleri</h2>
+      <p class="section-intro">Bilder på datorbyggen, hemmalabb och projekt läggs till här efter hand.</p>
+      <div class="gallery-grid">
+
+        <!-- Varje ruta är en platshållare. Byt ut mot t.ex.:
+             <img src="images/datorbygge-1.jpg" alt="Beskrivning av bilden"> -->
+        <div class="gallery-item placeholder-box">
+          <i data-lucide="image" class="icon"></i>
+          <span>Datorbygge</span>
+        </div>
+        <div class="gallery-item placeholder-box">
+          <i data-lucide="image" class="icon"></i>
+          <span>Hemmalabb</span>
+        </div>
+        <div class="gallery-item placeholder-box">
+          <i data-lucide="image" class="icon"></i>
+          <span>Linux</span>
+        </div>
+        <div class="gallery-item placeholder-box">
+          <i data-lucide="image" class="icon"></i>
+          <span>Nätverk</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. GITHUB
+         Repos hämtas live från GitHubs publika API i js/script.js — innehållet
+         här är alltså alltid verkligt och uppdaterar sig självt.
+         ========================================================================== -->
+    <section id="github" class="block reveal">
+      <span class="eyebrow"><i data-lucide="github" class="icon"></i> GitHub</span>
+      <h2>GitHub</h2>
+      <p class="section-intro">Mina projekt hämtas direkt från GitHub, så listan speglar alltid det som faktiskt finns i mina repos.</p>
+
+      <div class="card-grid" id="github-repos">
+        <!-- Fylls i av js/script.js. Visar en laddningstext tills hämtningen är klar. -->
+        <p class="github-status">Hämtar repos från GitHub&hellip;</p>
+      </div>
+
+      <a class="btn-ghost" href="https://github.com/krickoServ" target="_blank" rel="noopener">
+        <i data-lucide="external-link" class="icon"></i> Visa alla repos på GitHub
+      </a>
+    </section>
+
+    <!-- ==========================================================================
+         8. KONTAKT
+         ========================================================================== -->
+    <section id="kontakt" class="block reveal">
+      <span class="eyebrow"><i data-lucide="mail" class="icon"></i> Kontakt</span>
+      <h2>Kontakt</h2>
+      <p>Jag delar inte telefonnummer eller privat e-post öppet på den här sidan. Hör av dig via GitHub, så delar jag kontaktuppgifter vid seriöst intresse.</p>
+
+      <!-- Lägg till en LinkedIn-knapp här när du har ett konto, t.ex.:
+           <a class="btn-ghost" href="https://linkedin.com/in/ditt-namn" target="_blank" rel="noopener">
+             <i data-lucide="linkedin" class="icon"></i> LinkedIn
+           </a> -->
+      <a class="btn-primary" href="https://github.com/krickoServ" target="_blank" rel="noopener">
+        <i data-lucide="github" class="icon"></i> Besök min GitHub
+      </a>
+    </section>
+
+    <footer class="page-footer reveal">&copy; Christoffer Landberg</footer>
+
   </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
